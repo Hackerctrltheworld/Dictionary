@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="594.0" prefWidth="513.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryGui.LayoutController">
+   <children>
+      <AnchorPane fx:id="mainAnchorpane" focusTraversable="true" layoutX="-1.0" layoutY="103.0" prefHeight="387.0" prefWidth="513.0" style="-fx-background-color: edf6f9;" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="103.0" />
+      <Button fx:id="searchButton" alignment="TOP_CENTER" layoutX="20.0" layoutY="508.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="118.0" style="-fx-background-color: ffffff;">
+         <tooltip>
+            <Tooltip fx:id="searchTooltip" text="Tra từ" />
+         </tooltip>
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/add.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="exitButton" layoutX="366.0" layoutY="503.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="105.0" style="-fx-background-color: ffffff;">
+         <tooltip>
+            <Tooltip fx:id="exitTooltip" text="Thoát" />
+         </tooltip>
+         <graphic>
+            <ImageView fitHeight="68.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+   <cursor>
+      <Cursor fx:constant="CLOSED_HAND" />
+   </cursor>
+</AnchorPane>

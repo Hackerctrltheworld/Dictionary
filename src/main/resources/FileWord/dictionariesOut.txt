@@ -1,0 +1,23 @@
+No    | English            | Vietnamese        
+1     rabbit               con thỏ             
+2     hello                xin chào            
+3     mathematics          toán học            
+4     dog                  con chó             
+5     school               trường học          
+6     bus                  xe buýt             
+7     motorbike            xe máy              
+8     house                ngôi nhà            
+9     bicycle              xe đạp              
+10    car                  ô tô                
+11    duck                 con vịt             
+12    student              học sinh            
+13    teacher              giáo viên           
+14    football             bóng đá             
+15    basketball           bóng rổ             
+16    tennis               quần vợt            
+17    badminton            cầu lông            
+18    transportation       phương tiện         
+19    translate            phiên dịch          
+20    transformer          sự biến đổi         
+21    transit              sự vận chuyển       
+22    window               cửa sổ              

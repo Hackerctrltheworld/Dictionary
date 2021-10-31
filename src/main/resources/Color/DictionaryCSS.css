@@ -1,0 +1,20 @@
+
+.listView {
+    -fx-text-fill: #9f45b0;
+    -fx-font-size: 16;
+    -fx-font-weight: 700;
+    -fx-padding: 5;
+    -fx-background-color: -fx-box-border, -fx-control-inner-background;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.search-pane {
+    -fx-border-radius: 10;
+    -fx-background-color: #ae2012;
+}
+
+button {
+    -fx-background-color: #ae2012;
+
+}
