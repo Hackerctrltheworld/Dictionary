@@ -12,20 +12,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryGui.SearchController">
    <children>
-      <TextField fx:id="textField" layoutX="110.0" prefHeight="83.0" prefWidth="284.0" promptText="Sreach" styleClass="searchTextField" stylesheets="@../Color/DictionaryCSS.css" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="0.0" />
-      <Pane layoutX="261.0" layoutY="96.0" prefHeight="299.0" prefWidth="252.0" styleClass="search-pane" stylesheets="@../Color/DictionaryCSS.css" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0">
+      <TextField fx:id="textField" layoutX="110.0" prefHeight="83.0" prefWidth="284.0" promptText="Sreach" styleClass="searchTextField" stylesheets="@../style/DictionaryCSS.css" AnchorPane.bottomAnchor="304.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="0.0" />
+      <Pane layoutX="261.0" layoutY="96.0" prefHeight="299.0" prefWidth="252.0" styleClass="search-pane" stylesheets="@../style/DictionaryCSS.css" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0">
          <children>
             <ImageView fitHeight="29.0" fitWidth="28.0" layoutX="198.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/speaker.png" />
                </image>
             </ImageView>
-            <Button fx:id="speechButton" defaultButton="true" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#speech" opacity="0.0" prefHeight="28.0" prefWidth="28.0" styleClass="speech-button" stylesheets="@../Color/DictionaryCSS.css">
+            <Button fx:id="speechButton" defaultButton="true" layoutX="198.0" layoutY="10.0" mnemonicParsing="false" onAction="#speech" opacity="0.0" prefHeight="28.0" prefWidth="28.0" styleClass="speech-button" stylesheets="@../style/DictionaryCSS.css">
                <tooltip>
                   <Tooltip text="Phát âm" />
                </tooltip>
             </Button>
-            <Button fx:id="deleteButton" layoutX="33.0" layoutY="5.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="44.0" styleClass="edit-button" stylesheets="@../Color/DictionaryCSS.css">
+            <Button fx:id="deleteButton" layoutX="33.0" layoutY="5.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="44.0" styleClass="edit-button" stylesheets="@../style/DictionaryCSS.css">
                <tooltip>
                   <Tooltip text="Thay đổi" />
                </tooltip>
@@ -42,6 +42,6 @@
             </Button>
          </children>
       </Pane>
-      <ListView fx:id="myListView" layoutY="96.0" prefHeight="292.0" prefWidth="252.0" styleClass="listView" stylesheets="@../Color/DictionaryCSS.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="96.0" />
+      <ListView fx:id="myListView" layoutY="96.0" prefHeight="292.0" prefWidth="252.0" styleClass="listView" stylesheets="@../style/DictionaryCSS.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="96.0" />
    </children>
 </AnchorPane>

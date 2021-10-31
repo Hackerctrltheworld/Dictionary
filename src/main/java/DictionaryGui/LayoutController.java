@@ -28,7 +28,7 @@ public class LayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDefaultScreen();
         searchButton.setOnAction(event -> {
-            initSelectedScene("/Views/SearchGUI.fxml");
+            initSelectedScene("/views/SearchGUI.fxml");
         });
         exitButton.setOnMouseClicked(mouseEvent -> System.exit(0));
 
@@ -48,7 +48,7 @@ public class LayoutController implements Initializable {
     }
 
     public void setDefaultScreen() {
-        initSelectedScene("/Views/SearchGUI.fxml");
+        initSelectedScene("/views/SearchGUI.fxml");
     }
 }
 

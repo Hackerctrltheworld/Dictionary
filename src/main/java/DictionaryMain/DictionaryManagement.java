@@ -43,7 +43,7 @@ public class DictionaryManagement<E> {
      * @throws FileNotFoundException .
      */
     public void insertFromFile() {
-        Path path = Paths.get("src/main/dictionaries.txt");
+        Path path = Paths.get("src/main/resources/file/dictionaries.txt");
         try (BufferedReader bufferedReader = Files.newBufferedReader(path)){
             String line;
             while ((line = bufferedReader.readLine()) != null) {
