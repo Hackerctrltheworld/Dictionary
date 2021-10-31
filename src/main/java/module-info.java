@@ -4,6 +4,7 @@ module com.example.gui {
     requires org.controlsfx.controls;
     requires freetts;
 
+
     opens DictionaryMain to javafx.fxml;
     exports DictionaryMain;
     exports DictionaryGui;
