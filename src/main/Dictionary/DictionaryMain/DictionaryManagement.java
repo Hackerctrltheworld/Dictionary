@@ -1,18 +1,11 @@
-package DictionaryMain;
-
-import Algorithm.TrieAlgorithm;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Parent;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-public class DictionaryManagement<E> {
-    TrieAlgorithm trieAlgorithm = new TrieAlgorithm();
+public class DictionaryManagement {
 
     /**
      * them tu moi dung ban phim.
@@ -39,45 +32,37 @@ public class DictionaryManagement<E> {
      *
      * @throws FileNotFoundException .
      */
-    public void insertFromFile() {
-        Path path = Paths.get("src/main/resources/file/dictionaries.txt");
-        try (BufferedReader bufferedReader = Files.newBufferedReader(path)){
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] split = line.split("\\t");
-                if(split.length == 2) {
-                    Word word = new Word(split[0], split[1]);
-                    Dictionary.listWord.add(word);
-                }
+    public void insertFromFile() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File("src/dictionaries.txt"));
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] englishWord = line.split(" ", 2);
+            if (englishWord.length > 1) {
+                Word newWords = new Word();
+                newWords.setWord_target(englishWord[0]);
+                newWords.setWord_explain(englishWord[1]);
+                Dictionary.listWord.add(newWords);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        Dictionary.listWord.sort(Comparator.comparing(o -> o.getWord_target()));
-    }
-
-    public List<String> addFromListWord() {
-        List<String> list = new ArrayList<>();
-
-        for (Word word : Dictionary.listWord) {
-            list.add(word.getWord_target());
-        }
-
-        return list;
     }
 
     /**
      * ham tra cuu tu.
      */
-    public ObservableList<String> dictionaryLookup(String word) {
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        List<String> result = addFromListWord();
-        trieAlgorithm = new TrieAlgorithm(result);
-        result = trieAlgorithm.suggest(word);
-        for (int i = 0; i < result.size(); i++) {
-            observableList.add(result.get(i));
+    public void dictionaryLookup() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Nhập từ bạn muốn tra cứu: ");
+        String str = scan.nextLine();
+        boolean check1 = true;
+        for (Word w : Dictionary.listWord) {
+            if (str.equals(w.getWord_target())) {
+                check1 = false;
+                System.out.println(str + " có nghĩa tiếng Việt là: " + w.getWord_explain());
+            }
         }
-        return observableList;
+        if (check1) {
+            System.out.println("Xin lỗi, từ "  + str + " hiện không có trong từ điển.");
+        }
     }
 
     /**
@@ -138,7 +123,11 @@ public class DictionaryManagement<E> {
         for (Word w : Dictionary.listWord) {
             if (str.equalsIgnoreCase(w.getWord_target())) {
                 check = true;
-                System.out.println("Nhập nội dung bạn muốn thay đổi:\n" + "1.Từ tiếng Anh\n" + "2.Từ giải nghĩa tiếng Việt\n" + "3.Cả từ tiếng Anh và nghĩa tiếng Việt\n");
+                System.out.println("Nhập nội dung bạn muốn thay đổi:\n"
+                        + "1.Từ tiếng Anh\n"
+                        + "2.Từ giải nghĩa tiếng Việt\n"
+                        + "3.Cả từ tiếng Anh và nghĩa tiếng Việt\n"
+                );
                 int n = sc.nextInt();
                 sc.nextLine();
                 if (n == 1) {
@@ -169,7 +158,6 @@ public class DictionaryManagement<E> {
 
     /**
      * xuat du lieu ra file.
-     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -179,11 +167,17 @@ public class DictionaryManagement<E> {
         FileOutputStream fileOutputStream = new FileOutputStream(fileout);
         try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream)) {
             int n = 1;
-            String s = String.format("%-5s %-20s %-20s", "No", "| English", "| Vietnamese");
+            String s = String.format("%-5s %-30s %-20s",
+                    "No",
+                    "| English",
+                    "| Vietnamese");
             bufferedOutputStream.write(s.getBytes());
             bufferedOutputStream.write(System.lineSeparator().getBytes());
             for (Word w : Dictionary.listWord) {
-                String s1 = String.format("%-5s %-20s %-20s", n, w.getWord_target(), w.getWord_explain());
+                String s1 = String.format("%-5s %-30s %-20s",
+                        n,
+                        w.getWord_target(),
+                        w.getWord_explain());
                 n++;
                 bufferedOutputStream.write(s1.getBytes());
                 bufferedOutputStream.write(System.lineSeparator().getBytes());
