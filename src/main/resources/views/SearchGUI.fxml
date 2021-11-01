@@ -38,9 +38,9 @@
                </graphic>
             </Button>
             <TextField fx:id="displayWord" alignment="CENTER" editable="false" layoutX="73.0" layoutY="14.0" prefHeight="57.0" prefWidth="132.0" />
-            <ImageView fitHeight="148.0" fitWidth="198.0" layoutX="292.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="148.0" fitWidth="198.0" layoutX="336.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/Personal%20files-pana%20(1).png" />
+                  <Image url="@../images/person.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="57.0" fitWidth="57.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -48,7 +48,16 @@
                   <Image url="@../icon/laptop_key_100px.png" />
                </image>
             </ImageView>
-            <TextArea fx:id="explanationField" editable="false" layoutY="183.0" prefHeight="244.0" prefWidth="498.0" promptText="Giải thích" styleClass="explanation-field" wrapText="true" />
+            <TextArea fx:id="explanationField" editable="false" layoutY="183.0" prefHeight="244.0" prefWidth="498.0" styleClass="explanation-field" wrapText="true" />
+            <Button fx:id="acceptButton" layoutX="230.0" layoutY="89.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="85.0" style="-fx-background-color: #c9184a;" visible="false">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/checkmark_100px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
       <Pane layoutX="13.0" layoutY="20.0" prefHeight="427.0" prefWidth="200.0" style="-fx-background-color: #cbf3f0;">

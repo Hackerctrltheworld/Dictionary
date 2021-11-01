@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -24,21 +25,21 @@ public class SearchController implements Initializable {
     DictionaryManagement management = new DictionaryManagement();
     DictionaryCommandline commandline = new DictionaryCommandline();
     MySQLConnection connection = new MySQLConnection();
+    int found;
     private ObservableList<String> observableList = FXCollections.observableArrayList();
     @FXML
     private ListView<String> myListView;
     @FXML
     private TextField textField, displayWord;
     @FXML
-    private Button deleteButton, addButton, editButton;
+    private Button acceptButton;
     @FXML
     private Tooltip deleteTooltip, speakTooltip, editTooltip;
     @FXML
     private TextArea explanationField;
-    int index;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        management.insertFromFile();
         connection.Connection();
         myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         textField.setOnKeyTyped(keyEvent -> {
@@ -49,10 +50,10 @@ public class SearchController implements Initializable {
                 search();
             }
         });
-
-        deleteTooltip.setShowDelay(LayoutController.DURATION);
-        speakTooltip.setShowDelay(LayoutController.DURATION);
-        speakTooltip.setShowDelay(LayoutController.DURATION);
+        selectedItem = null;
+        for (Tooltip tooltip : Arrays.asList(deleteTooltip, speakTooltip, editTooltip)) {
+            tooltip.setShowDelay(LayoutController.DURATION);
+        }
     }
 
     public void search() {
@@ -63,14 +64,19 @@ public class SearchController implements Initializable {
         myListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
             selectedItem = myListView.getSelectionModel().getSelectedItem();
             displayWord.setText(selectedItem);
+            acceptButton.setVisible(false);
+            explanationField.setEditable(false);
+            explanationField.setOnKeyPressed(keyEvent -> {
+                return;
+            });
         });
     }
 
     @FXML
     public void showExplainaton() {
-        if(selectedItem != null) {
-            int found = commandline.dictionarySearcherBinary(selectedItem);
-            if(found == -1) {
+        if (selectedItem != null) {
+            found = commandline.dictionarySearcherBinary(selectedItem);
+            if (found == -1) {
                 return;
             }
             explanationField.setText(Dictionary.listWord.get(found).getWord_explain());
@@ -84,8 +90,6 @@ public class SearchController implements Initializable {
             voice.allocate();
             if (selectedItem != null) {
                 voice.speak(selectedItem);
-            } else {
-                voice.speak("No word selected");
             }
         } catch (Exception e) {
             System.out.println("Voice not found");
@@ -98,27 +102,64 @@ public class SearchController implements Initializable {
         String title = "Delete!";
         String path = "/delete_30px.png";
         Alert alert = noticeDelete.alertConfirmation(title, path);
-        alert.setHeaderText(null);
-        if(selectedItem == null) {
+        if (selectedItem == null) {
             alert.setContentText("Hãy chọn từ để xoá");
             alert.showAndWait();
-        }
-        else if(selectedItem != null) {
+        } else if (selectedItem != null) {
             alert.setContentText("Bạn có chắc muốn xoá từ này?");
             Optional<ButtonType> buttonType = alert.showAndWait();
-            if(buttonType.get() == ButtonType.OK) {
+            if (buttonType.get() == ButtonType.OK) {
                 observableList.remove(selectedItem);
                 alert.setTitle("Successfully!");
                 alert.setContentText("Thành công");
                 alert.setGraphic(new ImageView("/checked_32px.png"));
                 explanationField.setText(null);
+                displayWord.setText(null);
+                explanationField.setEditable(false);
+                acceptButton.setDisable(true);
                 alert.showAndWait();
             }
         }
     }
 
+    private void setAlertToEdit(Notice notice) {
+        String title = "Edit!";
+        Alert alert = notice.alertConfirmation(title, "/question_mark_32px.png");
+        alert.setContentText("Bạn chắc chắn chỉnh sửa?");
+        Optional<ButtonType> editWord = alert.showAndWait();
+        if (editWord.get() == ButtonType.OK) {
+            explanationField.setEditable(false);
+            alert.setContentText("Thành công");
+            alert.setGraphic(new ImageView("/checked_32px.png"));
+            acceptButton.setVisible(false);
+        } else if(editWord.get() == ButtonType.CANCEL) {
+            return;
+        }
+        alert.showAndWait();
+    }
+
+
     public void edit() {
+        if(selectedItem == null) {
+            return;
+        }
+        Notice editNotice = new Notice();
         explanationField.setEditable(true);
+        acceptButton.setVisible(true);
+        acceptButton.setOnAction(event -> {
+            setAlertToEdit(editNotice);
+            management.editWord(found,explanationField.getText());
+        });
+
+        explanationField.setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case ENTER: {
+                   setAlertToEdit(editNotice);
+                    management.editWord(found,explanationField.getText());
+                }
+                break;
+            }
+        });
     }
 }
 

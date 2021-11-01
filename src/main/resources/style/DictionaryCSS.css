@@ -13,9 +13,6 @@
     -fx-border-radius: 10;
 }
 
-.button {
-    -fx-background-color: #ae2012;
-}
 
 .explanation-field {
     -fx-border-radius: 50%;

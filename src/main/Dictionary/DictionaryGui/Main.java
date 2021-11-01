@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/Layout.fxml"));
-        stage.setTitle("DictionaryMain.Dictionary app");
+        stage.setTitle("Dictionary");
         Scene scene = new Scene(root);
         Image icon = new Image("book.png");
         stage.getIcons().add(icon);

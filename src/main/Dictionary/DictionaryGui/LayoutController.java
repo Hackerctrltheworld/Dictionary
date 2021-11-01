@@ -13,23 +13,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LayoutController implements Initializable {
+    public final static Duration DURATION = new Duration(0.1);
     @FXML
     Button searchButton;
     @FXML
-    Tooltip searchTooltip,addTooltip;
+    Tooltip searchTooltip, addTooltip;
     @FXML
     Tooltip exitTooltip;
     @FXML
     Button exitButton;
     @FXML
     AnchorPane mainAnchorpane = new AnchorPane();
-    public final static Duration DURATION = new Duration(0.1);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDefaultScreen();
-        searchButton.setOnAction(event -> {
-            initSelectedScene("/views/SearchGUI.fxml");
-        });
+        searchButton.setOnAction(event -> initSelectedScene("/views/SearchGUI.fxml"));
         exitButton.setOnMouseClicked(mouseEvent -> System.exit(0));
 
 
