@@ -106,7 +106,11 @@ public class SearchController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
             if(buttonType.get() == ButtonType.OK) {
                 observableList.remove(selectedItem);
+                alert.setTitle("Successfully!");
                 alert.setContentText("Thành công");
+                alert.setGraphic(new ImageView("/checked_32px.png"));
+                explanationField.setText(null);
+                alert.showAndWait();
             }
         }
     }
