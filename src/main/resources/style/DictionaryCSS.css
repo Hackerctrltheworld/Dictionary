@@ -11,10 +11,14 @@
 
 .search-pane {
     -fx-border-radius: 10;
+}
+
+.button {
     -fx-background-color: #ae2012;
 }
 
-button {
-    -fx-background-color: #ae2012;
-
+.explanation-field {
+    -fx-border-radius: 50%;
+    -fx-font-size: 1.5em;
+    -fx-font-family: "Lucida Console",SansSerif;
 }

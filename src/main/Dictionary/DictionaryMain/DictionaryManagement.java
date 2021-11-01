@@ -9,10 +9,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DictionaryManagement<E> {
     TrieAlgorithm trieAlgorithm = new TrieAlgorithm();

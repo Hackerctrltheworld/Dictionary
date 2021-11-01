@@ -16,14 +16,14 @@ public class LayoutController implements Initializable {
     @FXML
     Button searchButton;
     @FXML
-    Tooltip searchTooltip;
+    Tooltip searchTooltip,addTooltip;
     @FXML
     Tooltip exitTooltip;
     @FXML
     Button exitButton;
     @FXML
     AnchorPane mainAnchorpane = new AnchorPane();
-
+    public final static Duration DURATION = new Duration(0.1);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDefaultScreen();
@@ -32,9 +32,10 @@ public class LayoutController implements Initializable {
         });
         exitButton.setOnMouseClicked(mouseEvent -> System.exit(0));
 
-        Duration duration = new Duration(0.1);
-        searchTooltip.setShowDelay(duration);
-        exitTooltip.setShowDelay(duration);
+
+        searchTooltip.setShowDelay(DURATION);
+        exitTooltip.setShowDelay(DURATION);
+        addTooltip.setShowDelay(DURATION);
     }
 
     public void initSelectedScene(String path) {
