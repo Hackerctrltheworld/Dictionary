@@ -1,0 +1,21 @@
+hello xin chào
+mathematics toán học
+dog con chó
+school trường học
+bus xe buýt
+motorbike xe máy
+house ngôi nhà
+bicycle xe đạp
+car ô tô
+duck con vịt
+student học sinh
+teacher giáo viên
+football bóng đá
+basketball bóng rổ
+tennis quần vợt
+badminton cầu lông
+transportation phương tiện
+translate phiên dịch
+transformer sự biến đổi
+transit sự vận chuyển
+
