@@ -1,5 +1,6 @@
 package DictionaryGui;
 
+import Database.MySQLConnection;
 import DictionaryMain.Dictionary;
 import DictionaryMain.DictionaryCommandline;
 import DictionaryMain.DictionaryManagement;
@@ -22,6 +23,7 @@ public class SearchController implements Initializable {
     String selectedItem;
     DictionaryManagement management = new DictionaryManagement();
     DictionaryCommandline commandline = new DictionaryCommandline();
+    MySQLConnection connection = new MySQLConnection();
     private ObservableList<String> observableList = FXCollections.observableArrayList();
     @FXML
     private ListView<String> myListView;
@@ -36,7 +38,8 @@ public class SearchController implements Initializable {
     int index;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        management.insertFromFile();
+//        management.insertFromFile();
+        connection.Connection();
         myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         textField.setOnKeyTyped(keyEvent -> {
             if (textField.getText().isEmpty()) {
@@ -76,7 +79,6 @@ public class SearchController implements Initializable {
 
     public void speech() {
         try {
-            // Set property as Kevin DictionaryMain.Dictionary
             System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
             Voice voice = VoiceManager.getInstance().getVoice("kevin16");
             voice.allocate();
@@ -93,10 +95,10 @@ public class SearchController implements Initializable {
 
     public void delete() {
         Notice noticeDelete = new Notice();
-        Alert alert = noticeDelete.showDeteleNotice();
+        String title = "Delete!";
+        String path = "/delete_30px.png";
+        Alert alert = noticeDelete.alertConfirmation(title, path);
         alert.setHeaderText(null);
-        alert.setTitle("Delete!");
-        alert.setGraphic(new ImageView("/delete_30px.png"));
         if(selectedItem == null) {
             alert.setContentText("Hãy chọn từ để xoá");
             alert.showAndWait();
