@@ -1,11 +1,12 @@
+package DictionaryMain;
+
 import java.sql.*;
-import java.util.List;
 
 public class MySQLConnection {
     public void Connection () throws ClassNotFoundException, SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/edict_db", "root", "chudat1103");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/edict_db", "root", "Hien11092002");
             PreparedStatement statement = conn.prepareStatement("select * from tbl_edict");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {

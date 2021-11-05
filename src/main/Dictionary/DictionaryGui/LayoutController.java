@@ -1,5 +1,7 @@
 package DictionaryGui;
 
+import Database.MySQLConnection;
+import DictionaryMain.Dictionary;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,27 +16,32 @@ import java.util.ResourceBundle;
 
 public class LayoutController implements Initializable {
     public final static Duration DURATION = new Duration(0.1);
+    MySQLConnection connection = new MySQLConnection();
     @FXML
-    Button searchButton;
+    Button searchButton, exitButton, googleButton;
     @FXML
     Tooltip searchTooltip, addTooltip;
     @FXML
     Tooltip exitTooltip;
     @FXML
-    Button exitButton;
-    @FXML
     AnchorPane mainAnchorpane = new AnchorPane();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        connection.Connection();
+        System.out.println(Dictionary.listWord.size());
         setDefaultScreen();
-        searchButton.setOnAction(event -> initSelectedScene("/views/SearchGUI.fxml"));
+        searchButton.setOnAction(event -> {
+            initSelectedScene("/views/SearchGUI.fxml");
+        });
         exitButton.setOnMouseClicked(mouseEvent -> System.exit(0));
-
-
+        googleButton.setOnAction(event -> {
+            initSelectedScene("/views/GoogleTranslation.fxml");
+        });
         searchTooltip.setShowDelay(DURATION);
         exitTooltip.setShowDelay(DURATION);
         addTooltip.setShowDelay(DURATION);
+
     }
 
     public void initSelectedScene(String path) {

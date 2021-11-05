@@ -7,12 +7,14 @@ import DictionaryMain.DictionaryManagement;
 import Notice.Notice;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -20,11 +22,10 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class SearchController implements Initializable {
+public class SearchController extends Thread implements Initializable {
     String selectedItem;
     DictionaryManagement management = new DictionaryManagement();
     DictionaryCommandline commandline = new DictionaryCommandline();
-    MySQLConnection connection = new MySQLConnection();
     int found;
     private ObservableList<String> observableList = FXCollections.observableArrayList();
     @FXML
@@ -40,37 +41,40 @@ public class SearchController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        connection.Connection();
         myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         textField.setOnKeyTyped(keyEvent -> {
             if (textField.getText().isEmpty()) {
-                observableList.clear();
-                selectedItem = null;
+                observableList = FXCollections.observableList(management.addFromListWord());
+                myListView.setItems(observableList);
             } else {
                 search();
             }
         });
-        selectedItem = null;
         for (Tooltip tooltip : Arrays.asList(deleteTooltip, speakTooltip, editTooltip)) {
             tooltip.setShowDelay(LayoutController.DURATION);
         }
     }
 
     public void search() {
-        observableList.clear();
-        String search = textField.getText().trim().toLowerCase(Locale.ROOT);
-        observableList = management.dictionaryLookup(search);
-        myListView.setItems(observableList);
-        myListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
-            selectedItem = myListView.getSelectionModel().getSelectedItem();
-            displayWord.setText(selectedItem);
-            acceptButton.setVisible(false);
-            explanationField.setEditable(false);
-            explanationField.setOnKeyPressed(keyEvent -> {
-                return;
+        Runnable task = () -> Platform.runLater(() -> {
+            observableList.clear();
+            String search = textField.getText().trim().toLowerCase(Locale.ROOT);
+            observableList = management.dictionaryLookup(search);
+            myListView.setItems(observableList);
+            myListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+                selectedItem = myListView.getSelectionModel().getSelectedItem();
+                displayWord.setText(selectedItem);
+                acceptButton.setVisible(false);
+                explanationField.setEditable(false);
+                explanationField.setOnKeyPressed(keyEvent -> {
+                    return;
+                });
             });
         });
+
+        new Thread(task).start();
     }
+
 
     @FXML
     public void showExplainaton() {
@@ -109,6 +113,8 @@ public class SearchController implements Initializable {
             alert.setContentText("Bạn có chắc muốn xoá từ này?");
             Optional<ButtonType> buttonType = alert.showAndWait();
             if (buttonType.get() == ButtonType.OK) {
+//                observableList.remove(selectedItem);
+                Dictionary.listWord.removeIf(o -> o.getWord_target().equals(selectedItem));
                 observableList.remove(selectedItem);
                 alert.setTitle("Successfully!");
                 alert.setContentText("Thành công");
@@ -132,7 +138,7 @@ public class SearchController implements Initializable {
             alert.setContentText("Thành công");
             alert.setGraphic(new ImageView("/checked_32px.png"));
             acceptButton.setVisible(false);
-        } else if(editWord.get() == ButtonType.CANCEL) {
+        } else if (editWord.get() == ButtonType.CANCEL) {
             return;
         }
         alert.showAndWait();
@@ -140,7 +146,7 @@ public class SearchController implements Initializable {
 
 
     public void edit() {
-        if(selectedItem == null) {
+        if (selectedItem == null) {
             return;
         }
         Notice editNotice = new Notice();
@@ -148,16 +154,14 @@ public class SearchController implements Initializable {
         acceptButton.setVisible(true);
         acceptButton.setOnAction(event -> {
             setAlertToEdit(editNotice);
-            management.editWord(found,explanationField.getText());
+            management.editWord(found, explanationField.getText());
         });
 
         explanationField.setOnKeyPressed(keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case ENTER: {
-                   setAlertToEdit(editNotice);
-                    management.editWord(found,explanationField.getText());
-                }
-                break;
+            if(keyEvent.getCode() == KeyCode.ENTER) {
+                setAlertToEdit(editNotice);
+            } else {
+                return;
             }
         });
     }

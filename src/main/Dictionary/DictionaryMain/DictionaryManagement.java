@@ -3,13 +3,15 @@ package DictionaryMain;
 import Algorithm.TrieAlgorithm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
 public class DictionaryManagement<E> {
     TrieAlgorithm trieAlgorithm = new TrieAlgorithm();
@@ -41,11 +43,11 @@ public class DictionaryManagement<E> {
      */
     public void insertFromFile() {
         Path path = Paths.get("src/main/resources/file/dictionaries.txt");
-        try (BufferedReader bufferedReader = Files.newBufferedReader(path)){
+        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] split = line.split("\\t");
-                if(split.length == 2) {
+                if (split.length == 2) {
                     Word word = new Word(split[0], split[1]);
                     Dictionary.listWord.add(word);
                 }
@@ -126,46 +128,6 @@ public class DictionaryManagement<E> {
             System.out.println("Thành công. Từ đã được xóa khỏi danh sách. ");
         }
     }
-
-    /**
-     * ham sua tu.
-     */
-//    public void editWord() {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Nhập từ bạn muốn thay đổi: ");
-//        String str = sc.nextLine();
-//        boolean check = false;
-//        for (Word w : Dictionary.listWord) {
-//            if (str.equalsIgnoreCase(w.getWord_target())) {
-//                check = true;
-//                System.out.println("Nhập nội dung bạn muốn thay đổi:\n" + "1.Từ tiếng Anh\n" + "2.Từ giải nghĩa tiếng Việt\n" + "3.Cả từ tiếng Anh và nghĩa tiếng Việt\n");
-//                int n = sc.nextInt();
-//                sc.nextLine();
-//                if (n == 1) {
-//                    System.out.println("Nhập từ mới: ");
-//                    String new_word = sc.nextLine();
-//                    w.setWord_target(new_word);
-//                }
-//                if (n == 2) {
-//                    System.out.println("Nhập nghĩa mới: ");
-//                    String new_explainWord = sc.nextLine();
-//                    w.setWord_explain(new_explainWord);
-//                }
-//                if (n == 3) {
-//                    System.out.println("Nhập từ mới: ");
-//                    String editWord = sc.nextLine();
-//                    w.setWord_target(editWord);
-//                    System.out.println("Nhập nghĩa mới: ");
-//                    String explainWord = sc.nextLine();
-//                    w.setWord_explain(explainWord);
-//                }
-//                System.out.println("Sửa đổi từ thành công.");
-//            }
-//        }
-//        if (!check) {
-//            System.out.println("Từ này không tồn tại trong danh sách. Bạn vui lòng kiểm tra lại.");
-//        }
-//    }
 
     public void editWord(int index, String newMeaning) {
         try {

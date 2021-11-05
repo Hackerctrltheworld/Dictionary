@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="475.0" prefWidth="764.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryGui.SearchController">
+   <children>
+      <Pane layoutX="249.0" layoutY="99.0" prefHeight="427.0" prefWidth="498.0" style="-fx-background-color: #cbf3f0;" styleClass="search-pane" stylesheets="@../style/DictionaryCSS.css" AnchorPane.bottomAnchor="28.0">
+         <children>
+            <Button fx:id="editButton" layoutX="6.0" layoutY="89.0" mnemonicParsing="false" onAction="#edit" prefHeight="57.0" prefWidth="85.0" style="-fx-background-color: #c9184a;">
+               <tooltip>
+                  <Tooltip fx:id="editTooltip" text="Chỉnh sửa" />
+               </tooltip>
+               <graphic>
+                  <ImageView fitHeight="47.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="speechButton" layoutX="118.0" layoutY="89.0" mnemonicParsing="false" onAction="#speech" onKeyPressed="#speech" prefHeight="57.0" prefWidth="85.0" style="-fx-background-color: #c9184a;" styleClass="speech-button" stylesheets="@../style/DictionaryCSS.css">
+               <tooltip>
+                  <Tooltip fx:id="speakTooltip" text="Phát âm" />
+               </tooltip>
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/speak.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="displayWord" alignment="CENTER" editable="false" layoutX="73.0" layoutY="14.0" prefHeight="57.0" prefWidth="132.0" />
+            <ImageView fitHeight="148.0" fitWidth="198.0" layoutX="336.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/person.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="57.0" fitWidth="57.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/laptop_key_100px.png" />
+               </image>
+            </ImageView>
+            <TextArea fx:id="explanationField" editable="false" layoutY="183.0" prefHeight="244.0" prefWidth="498.0" styleClass="explanation-field" wrapText="true" />
+            <Button fx:id="acceptButton" layoutX="230.0" layoutY="89.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="85.0" style="-fx-background-color: #c9184a;" visible="false">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/checkmark_100px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="13.0" layoutY="20.0" prefHeight="427.0" prefWidth="200.0" style="-fx-background-color: #cbf3f0;">
+         <children>
+            <ListView fx:id="myListView" layoutX="9.0" layoutY="49.0" onMouseClicked="#showExplainaton" prefHeight="283.0" prefWidth="182.0" styleClass="listView" stylesheets="@../style/DictionaryCSS.css" />
+            <TextField fx:id="textField" layoutX="9.0" layoutY="14.0" prefHeight="26.0" prefWidth="182.0" promptText="Search" styleClass="searchTextField" stylesheets="@../style/DictionaryCSS.css" />
+            <Button fx:id="deteleButton" layoutX="9.0" layoutY="354.0" mnemonicParsing="false" onAction="#delete" prefHeight="59.0" prefWidth="182.0" style="-fx-background-color: #c9184a;">
+               <tooltip>
+                  <Tooltip fx:id="deleteTooltip" text="Xoá từ" />
+               </tooltip>
+               <graphic>
+                  <ImageView fitHeight="82.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/delete_100px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
