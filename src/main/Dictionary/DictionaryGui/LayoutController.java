@@ -1,7 +1,6 @@
 package DictionaryGui;
 
 import Database.MySQLConnection;
-import DictionaryMain.Dictionary;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,9 +19,7 @@ public class LayoutController implements Initializable {
     @FXML
     Button searchButton, exitButton, googleButton;
     @FXML
-    Tooltip searchTooltip, addTooltip;
-    @FXML
-    Tooltip exitTooltip;
+    Tooltip searchTooltip, addTooltip, exitTooltip, translateTooltip;
     @FXML
     AnchorPane mainAnchorpane = new AnchorPane();
 
@@ -30,16 +27,15 @@ public class LayoutController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connection.Connection();
         setDefaultScreen();
-        searchButton.setOnAction(event -> {
-            initSelectedScene("/views/SearchGUI.fxml");
-        });
+        searchButton.setOnAction(event -> initSelectedScene("/views/SearchGUI.fxml"));
         exitButton.setOnMouseClicked(mouseEvent -> System.exit(0));
-        googleButton.setOnAction(event -> {
-            initSelectedScene("/views/GoogleTranslation.fxml");
+            googleButton.setOnAction(event -> {
+            initSelectedScene("/views/GoogleAPI.fxml");
         });
         searchTooltip.setShowDelay(DURATION);
         exitTooltip.setShowDelay(DURATION);
         addTooltip.setShowDelay(DURATION);
+        translateTooltip.setShowDelay(DURATION);
 
     }
 

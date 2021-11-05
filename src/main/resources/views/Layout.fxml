@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="596.0" prefWidth="798.0" style="-fx-background-color: #f4acb7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryGui.LayoutController">
    <children>
       <AnchorPane fx:id="mainAnchorpane" focusTraversable="true" layoutX="17.0" layoutY="42.0" prefHeight="475.0" prefWidth="764.0" style="-fx-background-color: #ffffff;" />
-      <Button fx:id="searchButton" alignment="TOP_CENTER" layoutX="357.0" layoutY="520.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="83.0" style="-fx-background-color: #f4acb7;">
+      <Button fx:id="searchButton" alignment="TOP_CENTER" layoutX="357.0" layoutY="520.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="83.0" style="-fx-background-color: #f4acb7;" AnchorPane.leftAnchor="250.0">
          <tooltip>
             <Tooltip fx:id="searchTooltip" text="Tra từ" />
          </tooltip>
@@ -44,6 +44,18 @@
          </graphic>
          <tooltip>
             <Tooltip fx:id="addTooltip" text="Thêm từ" />
+         </tooltip>
+      </Button>
+      <Button fx:id="googleButton" layoutX="480.0" layoutY="522.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="68.0" style="-fx-background-color: #f4acb7;" AnchorPane.rightAnchor="250.0">
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/google_translate_50px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <tooltip>
+            <Tooltip fx:id="translateTooltip" text="Google Translate" />
          </tooltip>
       </Button>
    </children>
