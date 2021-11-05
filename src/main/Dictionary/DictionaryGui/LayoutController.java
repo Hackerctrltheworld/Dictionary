@@ -29,7 +29,6 @@ public class LayoutController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connection.Connection();
-        System.out.println(Dictionary.listWord.size());
         setDefaultScreen();
         searchButton.setOnAction(event -> {
             initSelectedScene("/views/SearchGUI.fxml");

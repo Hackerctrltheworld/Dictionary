@@ -1,6 +1,5 @@
 package DictionaryGui;
 
-import Database.MySQLConnection;
 import DictionaryMain.Dictionary;
 import DictionaryMain.DictionaryCommandline;
 import DictionaryMain.DictionaryManagement;
@@ -13,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 import java.net.URL;
@@ -23,17 +21,17 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SearchController extends Thread implements Initializable {
-    String selectedItem;
+    String selectedItem ,current;
     DictionaryManagement management = new DictionaryManagement();
     DictionaryCommandline commandline = new DictionaryCommandline();
     int found;
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ObservableList observableList = FXCollections.observableArrayList();
     @FXML
     private ListView<String> myListView;
     @FXML
     private TextField textField, displayWord;
     @FXML
-    private Button acceptButton;
+    private Button acceptButton, editButton, speechButton;
     @FXML
     private Tooltip deleteTooltip, speakTooltip, editTooltip;
     @FXML
@@ -62,6 +60,8 @@ public class SearchController extends Thread implements Initializable {
             observableList = management.dictionaryLookup(search);
             myListView.setItems(observableList);
             myListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+                speechButton.setVisible(true);
+                editButton.setVisible(true);
                 selectedItem = myListView.getSelectionModel().getSelectedItem();
                 displayWord.setText(selectedItem);
                 acceptButton.setVisible(false);
@@ -77,12 +77,16 @@ public class SearchController extends Thread implements Initializable {
 
 
     @FXML
-    public void showExplainaton() {
+    public void showExplanation() {
         if (selectedItem != null) {
             found = commandline.dictionarySearcherBinary(selectedItem);
             if (found == -1) {
                 return;
             }
+            editButton.setVisible(true);
+            speechButton.setVisible(true);
+            displayWord.setText(selectedItem);
+            current = selectedItem;
             explanationField.setText(Dictionary.listWord.get(found).getWord_explain());
         }
     }
@@ -104,21 +108,28 @@ public class SearchController extends Thread implements Initializable {
     public void delete() {
         Notice noticeDelete = new Notice();
         String title = "Delete!";
-        String path = "/delete_30px.png";
-        Alert alert = noticeDelete.alertConfirmation(title, path);
-        if (selectedItem == null) {
-            alert.setContentText("Hãy chọn từ để xoá");
+        String path = "/icon/delete_30px.png";
+        String context;
+        Alert alert;
+        if (current == null) {
+            context = "Hãy chọn từ để xoá";
+            alert = noticeDelete.alertWarning(title,path,context);
             alert.showAndWait();
         } else if (selectedItem != null) {
+            alert = noticeDelete.alertConfirmation(title, path);
             alert.setContentText("Bạn có chắc muốn xoá từ này?");
             Optional<ButtonType> buttonType = alert.showAndWait();
             if (buttonType.get() == ButtonType.OK) {
-//                observableList.remove(selectedItem);
-                Dictionary.listWord.removeIf(o -> o.getWord_target().equals(selectedItem));
-                observableList.remove(selectedItem);
-                alert.setTitle("Successfully!");
-                alert.setContentText("Thành công");
-                alert.setGraphic(new ImageView("/checked_32px.png"));
+                management.removeWord(selectedItem, observableList);
+                System.out.println(selectedItem);
+                editButton.setVisible(false);
+                speechButton.setVisible(false);
+                current = null;
+//                alert.setContentText();
+                title = "Successful!";
+                path = "/icon/checked_32px.png";
+                context = "Thành công";
+                alert = noticeDelete.alertWarning(title,path,context);
                 explanationField.setText(null);
                 displayWord.setText(null);
                 explanationField.setEditable(false);
@@ -130,15 +141,19 @@ public class SearchController extends Thread implements Initializable {
 
     private void setAlertToEdit(Notice notice) {
         String title = "Edit!";
-        Alert alert = notice.alertConfirmation(title, "/question_mark_32px.png");
+        String path = "/icon/question_mark_32px.png";
+        String context;
+        Alert alert = notice.alertConfirmation(title, path);
         alert.setContentText("Bạn chắc chắn chỉnh sửa?");
         Optional<ButtonType> editWord = alert.showAndWait();
         if (editWord.get() == ButtonType.OK) {
+            title = "Successful";
+            path = "/icon/checked_32px.png";
+            context = "Thành công";
             explanationField.setEditable(false);
-            alert.setContentText("Thành công");
-            alert.setGraphic(new ImageView("/checked_32px.png"));
+            alert = notice.alertWarning(title,path,context);
             acceptButton.setVisible(false);
-        } else if (editWord.get() == ButtonType.CANCEL) {
+        } else if(editWord.get() == ButtonType.CANCEL) {
             return;
         }
         alert.showAndWait();
@@ -148,22 +163,24 @@ public class SearchController extends Thread implements Initializable {
     public void edit() {
         if (selectedItem == null) {
             return;
-        }
-        Notice editNotice = new Notice();
-        explanationField.setEditable(true);
-        acceptButton.setVisible(true);
-        acceptButton.setOnAction(event -> {
-            setAlertToEdit(editNotice);
-            management.editWord(found, explanationField.getText());
-        });
-
-        explanationField.setOnKeyPressed(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.ENTER) {
+        } else {
+            Notice editNotice = new Notice();
+            explanationField.setEditable(true);
+            acceptButton.setVisible(true);
+            acceptButton.setDisable(false);
+            acceptButton.setOnAction(event -> {
                 setAlertToEdit(editNotice);
-            } else {
-                return;
-            }
-        });
+                management.editWord(found, explanationField.getText());
+            });
+
+            explanationField.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    setAlertToEdit(editNotice);
+                } else {
+                    return;
+                }
+            });
+        }
     }
 }
 

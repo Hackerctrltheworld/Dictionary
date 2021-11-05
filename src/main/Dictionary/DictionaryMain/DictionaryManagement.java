@@ -110,23 +110,9 @@ public class DictionaryManagement<E> {
     /**
      * ham xoa tu.
      */
-    public void removeWord() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Nhập từ muốn xóa: ");
-        String str = sc.nextLine();
-        boolean check = true;
-        for (Word w : Dictionary.listWord) {
-            if (str.equalsIgnoreCase(w.getWord_target())) {
-                Dictionary.listWord.remove(w);
-                check = false;
-                break;
-            }
-        }
-        if (check) {
-            System.out.println("Từ này hiện không có trong từ điển.");
-        } else {
-            System.out.println("Thành công. Từ đã được xóa khỏi danh sách. ");
-        }
+    public void removeWord(String word, ObservableList observableList) {
+        Dictionary.listWord.removeIf(o -> o.getWord_target().equals(word));
+        observableList.remove(word);
     }
 
     public void editWord(int index, String newMeaning) {
