@@ -1,4 +1,4 @@
-package DictionaryGui;
+package DictionaryController;
 
 public class AddController {
 }

@@ -1,4 +1,4 @@
-package DictionaryGui;
+package DictionaryController;
 
 import Database.MySQLConnection;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LayoutController implements Initializable {
@@ -29,19 +30,18 @@ public class LayoutController implements Initializable {
         setDefaultScreen();
         searchButton.setOnAction(event -> initSelectedScene("/views/SearchGUI.fxml"));
         exitButton.setOnMouseClicked(mouseEvent -> System.exit(0));
-            googleButton.setOnAction(event -> {
-            initSelectedScene("/views/GoogleAPI.fxml");
+        googleButton.setOnAction(event -> {
+            initSelectedScene("/views/TranslationGUI.fxml");
         });
         searchTooltip.setShowDelay(DURATION);
         exitTooltip.setShowDelay(DURATION);
         addTooltip.setShowDelay(DURATION);
         translateTooltip.setShowDelay(DURATION);
-
     }
 
     public void initSelectedScene(String path) {
         try {
-            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(path));
+            AnchorPane anchorPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
             mainAnchorpane.getChildren().clear();
             mainAnchorpane.getChildren().add(anchorPane);
         } catch (IOException e) {

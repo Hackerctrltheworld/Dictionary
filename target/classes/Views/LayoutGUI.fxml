@@ -7,10 +7,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="596.0" prefWidth="798.0" style="-fx-background-color: #f4acb7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryGui.LayoutController">
+<AnchorPane prefHeight="596.0" prefWidth="798.0" style="-fx-background-color: #f4acb7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController.LayoutController">
    <children>
-      <AnchorPane fx:id="mainAnchorpane" focusTraversable="true" layoutX="17.0" layoutY="42.0" prefHeight="475.0" prefWidth="764.0" style="-fx-background-color: #ffffff;" />
-      <Button fx:id="searchButton" alignment="TOP_CENTER" layoutX="357.0" layoutY="520.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="83.0" style="-fx-background-color: #f4acb7;" AnchorPane.leftAnchor="250.0">
+      <AnchorPane fx:id="mainAnchorpane" focusTraversable="true" layoutX="17.0" layoutY="42.0" prefHeight="475.0" prefWidth="764.0" style="-fx-background-color: #8fc0a9;" />
+      <Button fx:id="searchButton" alignment="TOP_CENTER" layoutX="17.0" layoutY="524.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="68.0" styleClass="menu" stylesheets="@../style/DictionaryCSS.css" AnchorPane.leftAnchor="17.0">
          <tooltip>
             <Tooltip fx:id="searchTooltip" text="Tra từ" />
          </tooltip>
@@ -22,7 +22,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="exitButton" layoutX="697.0" layoutY="523.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="83.0" style="-fx-background-color: #f4acb7;">
+      <Button fx:id="exitButton" layoutX="711.0" layoutY="522.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="50.0" styleClass="menu" stylesheets="@../style/DictionaryCSS.css">
          <tooltip>
             <Tooltip fx:id="exitTooltip" text="Thoát" />
          </tooltip>
@@ -34,7 +34,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="14.0" layoutY="520.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="112.0" style="-fx-background-color: #f4acb7;">
+      <Button layoutX="209.0" layoutY="520.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="42.0" styleClass="menu" stylesheets="@../style/DictionaryCSS.css" AnchorPane.leftAnchor="250.0">
          <graphic>
             <ImageView fx:id="addButton" fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -46,7 +46,7 @@
             <Tooltip fx:id="addTooltip" text="Thêm từ" />
          </tooltip>
       </Button>
-      <Button fx:id="googleButton" layoutX="480.0" layoutY="522.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="68.0" style="-fx-background-color: #f4acb7;" AnchorPane.rightAnchor="250.0">
+      <Button fx:id="googleButton" layoutX="480.0" layoutY="522.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="70.0" styleClass="menu" stylesheets="@../style/DictionaryCSS.css" AnchorPane.rightAnchor="250.0">
          <graphic>
             <ImageView fitHeight="51.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                <image>

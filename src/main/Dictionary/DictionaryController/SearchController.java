@@ -1,4 +1,4 @@
-package DictionaryGui;
+package DictionaryController;
 
 import DictionaryMain.Dictionary;
 import DictionaryMain.DictionaryCommandline;

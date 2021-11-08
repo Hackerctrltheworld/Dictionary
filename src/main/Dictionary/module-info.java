@@ -10,8 +10,8 @@ module com.example.Dictionary {
 
     opens DictionaryMain to javafx.fxml;
     exports DictionaryMain;
-    exports DictionaryGui;
-    opens DictionaryGui to javafx.fxml;
+    exports DictionaryController;
+    opens DictionaryController to javafx.fxml;
     exports Database;
     opens Database to javafx.fxml;
 }
