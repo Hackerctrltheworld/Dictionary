@@ -7,9 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="596.0" prefWidth="798.0" style="-fx-background-color: #f4acb7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController.LayoutController">
+<AnchorPane prefHeight="596.0" prefWidth="798.0" style="-fx-background-color: #78290f;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DictionaryController.FunctionController">
    <children>
-      <AnchorPane fx:id="mainAnchorpane" focusTraversable="true" layoutX="17.0" layoutY="42.0" prefHeight="475.0" prefWidth="764.0" style="-fx-background-color: #8fc0a9;" />
+      <AnchorPane fx:id="mainAnchorpane" focusTraversable="true" layoutX="19.0" layoutY="46.0" prefHeight="475.0" prefWidth="762.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" />
       <Button fx:id="searchButton" alignment="TOP_CENTER" layoutX="17.0" layoutY="524.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="68.0" styleClass="menu" stylesheets="@../style/DictionaryCSS.css" AnchorPane.leftAnchor="17.0">
          <tooltip>
             <Tooltip fx:id="searchTooltip" text="Tra từ" />

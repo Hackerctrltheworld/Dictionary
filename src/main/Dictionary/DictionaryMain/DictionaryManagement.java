@@ -76,9 +76,7 @@ public class DictionaryManagement<E> {
         List<String> result = addFromListWord();
         trieAlgorithm = new TrieAlgorithm(result);
         result = trieAlgorithm.suggest(word);
-        for (int i = 0; i < result.size(); i++) {
-            observableList.add(result.get(i));
-        }
+        observableList.addAll(result);
         return observableList;
     }
 

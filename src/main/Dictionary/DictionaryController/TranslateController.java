@@ -1,10 +1,12 @@
 package DictionaryController;
 
+import Notice.Notice;
 import TranslateAPI.GoogleAPI;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,7 +16,7 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TranslateController implements Initializable {
+public class TranslateController implements Initializable,Speak {
     @FXML
     TextField wordTarget, wordExplain, sourceText, toText;
     @FXML
@@ -23,11 +25,21 @@ public class TranslateController implements Initializable {
     Label sourceFlag, desFlag;
     String sourceLang = null;
     String toLang = null;
-
+    Notice notice;
+    Notice translate;
 
     @FXML
     private void handleTranslation() {
-        if(sourceText.getText().trim().isBlank()) {
+        if(sourceText.getText().equals("From: ")) {
+            translate = new Notice();
+            Alert chooseWord = translate.alertWarning("Unidentified action!", "/icon/ginger_man_question_mark_32px.png", "Hãy chọn ngôn ngữ cần dịch");
+            chooseWord.showAndWait();
+            return;
+        }
+        if(wordTarget.getText().trim().isBlank()) {
+            notice = new Notice();
+            Alert alerWarning = notice.alertWarning("Empty","/icon/collaboration_32px.png","Hãy nhập từ cần dịch");
+            alerWarning.showAndWait();
             return;
         }
         String wordTyped = wordTarget.getText().toLowerCase(Locale.ROOT).trim();
@@ -75,13 +87,27 @@ public class TranslateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (sourceText.getText().isEmpty()) {
-            translateButton.setDisable(true);
-        }
+        wordTarget.setPromptText("Word to be translated");
+        wordExplain.setPromptText("Explanation");
         wordTarget.setEditable(false);
         sourceText.setText("From: ");
         toText.setText("To: ");
         vietnameseToEnglish.setOnAction(event -> handleSwitchLanguageVietToEng());
         englishToVietnamese.setOnAction(event -> handleSwitchLanguageEngToVie());
+    }
+
+    @Override
+    public void speech() {
+        try {
+            System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
+            Voice voice = VoiceManager.getInstance().getVoice("kevin16");
+            voice.allocate();
+            if(!wordExplain.getText().isEmpty()) {
+                voice.speak(wordExplain.getText());
+            }
+        } catch (Exception e) {
+            System.out.println("Voice not found");
+            e.printStackTrace();
+        }
     }
 }

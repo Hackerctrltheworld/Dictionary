@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class SearchController extends Thread implements Initializable {
+public class SearchController extends Thread implements Initializable, Speak{
     String selectedItem ,current;
     DictionaryManagement management = new DictionaryManagement();
     DictionaryCommandline commandline = new DictionaryCommandline();
@@ -31,7 +31,7 @@ public class SearchController extends Thread implements Initializable {
     @FXML
     private TextField textField, displayWord;
     @FXML
-    private Button acceptButton, editButton, speechButton;
+    private Button acceptButton, editButton, speechButton, deleteButton;
     @FXML
     private Tooltip deleteTooltip, speakTooltip, editTooltip;
     @FXML
@@ -49,7 +49,7 @@ public class SearchController extends Thread implements Initializable {
             }
         });
         for (Tooltip tooltip : Arrays.asList(deleteTooltip, speakTooltip, editTooltip)) {
-            tooltip.setShowDelay(LayoutController.DURATION);
+            tooltip.setShowDelay(FunctionController.DURATION);
         }
     }
 
@@ -58,10 +58,14 @@ public class SearchController extends Thread implements Initializable {
             observableList.clear();
             String search = textField.getText().trim().toLowerCase(Locale.ROOT);
             observableList = management.dictionaryLookup(search);
+            if(observableList.isEmpty()) {
+                observableList.add("Word not found!");
+            }
             myListView.setItems(observableList);
             myListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
                 speechButton.setVisible(true);
                 editButton.setVisible(true);
+                deleteButton.setVisible(true);
                 selectedItem = myListView.getSelectionModel().getSelectedItem();
                 displayWord.setText(selectedItem);
                 acceptButton.setVisible(false);
@@ -85,12 +89,14 @@ public class SearchController extends Thread implements Initializable {
             }
             editButton.setVisible(true);
             speechButton.setVisible(true);
+            deleteButton.setVisible(true);
             displayWord.setText(selectedItem);
             current = selectedItem;
             explanationField.setText(Dictionary.listWord.get(found).getWord_explain());
         }
     }
 
+    @Override
     public void speech() {
         try {
             System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
@@ -111,11 +117,7 @@ public class SearchController extends Thread implements Initializable {
         String path = "/icon/delete_30px.png";
         String context;
         Alert alert;
-        if (current == null) {
-            context = "Hãy chọn từ để xoá";
-            alert = noticeDelete.alertWarning(title,path,context);
-            alert.showAndWait();
-        } else if (selectedItem != null) {
+        if (selectedItem != null) {
             alert = noticeDelete.alertConfirmation(title, path);
             alert.setContentText("Bạn có chắc muốn xoá từ này?");
             Optional<ButtonType> buttonType = alert.showAndWait();
@@ -124,8 +126,8 @@ public class SearchController extends Thread implements Initializable {
                 System.out.println(selectedItem);
                 editButton.setVisible(false);
                 speechButton.setVisible(false);
+                deleteButton.setVisible(false);
                 current = null;
-//                alert.setContentText();
                 title = "Successful!";
                 path = "/icon/checked_32px.png";
                 context = "Thành công";
@@ -133,7 +135,6 @@ public class SearchController extends Thread implements Initializable {
                 explanationField.setText(null);
                 displayWord.setText(null);
                 explanationField.setEditable(false);
-                acceptButton.setDisable(true);
                 alert.showAndWait();
             }
         }
@@ -171,14 +172,6 @@ public class SearchController extends Thread implements Initializable {
             acceptButton.setOnAction(event -> {
                 setAlertToEdit(editNotice);
                 management.editWord(found, explanationField.getText());
-            });
-
-            explanationField.setOnKeyPressed(keyEvent -> {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    setAlertToEdit(editNotice);
-                } else {
-                    return;
-                }
             });
         }
     }

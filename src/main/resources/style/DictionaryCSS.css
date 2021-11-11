@@ -1,8 +1,4 @@
 
-root {
-    -fx-cursor: not-allowed;
-}
-
 .listView {
     -fx-text-fill: #9f45b0;
     -fx-font-size: 16;
@@ -34,18 +30,56 @@ root {
 }
 
 .button-search {
-    -fx-background-color: #1E5162;
+    -fx-background-color: #ffecd1;
 }
 
 .button-search:hover {
-    -fx-background-color: #081c15;
+    -fx-background-color: #dee2ff;
 }
 
 .menu {
     -fx-background-color: transparent;
     -fx-background-radius: 50;
+
 }
 
 .menu:hover {
     -fx-background-color: #faf9f9;
+}
+
+.welcome-label {
+    -fx-text-fill: #480ca8;
+    -fx-background-color: transparent;
+}
+
+.main-pane {
+    -fx-background-color: #e63946;
+}
+
+.button-entrance {
+    -fx-background-color: #f1faee;
+}
+
+.button-entrance:hover {
+    -fx-background-radius: 20;
+    -fx-translate-y: -0.5em;
+    -fx-highlight-text-fill:#0093ff ;
+}
+
+.version-label {
+    -fx-background-color: #1d3557;
+    -fx-text-fill: #fff;
+    -fx-background-radius: 20;
+}
+
+.date-label {
+    -fx-background-radius: 20;
+}
+
+.speak-button {
+    -fx-background-color: transparent;
+}
+.speak-button:hover {
+    -fx-background-radius: 50;
+    -fx-background-color: #d3d3d3;
 }

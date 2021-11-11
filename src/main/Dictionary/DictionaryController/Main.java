@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     private double xOffset = 0;
@@ -21,7 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/LayoutGUI.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/MenuGUI.fxml")));
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
@@ -33,7 +34,7 @@ public class Main extends Application {
         root.setCursor(Cursor.DEFAULT);
         stage.setTitle("Dictionary");
         Scene scene = new Scene(root);
-        Image icon = new Image(getClass().getResource("/icon/book.png").toExternalForm());
+        Image icon = new Image(Objects.requireNonNull(getClass().getResource("/icon/book.png")).toExternalForm());
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
